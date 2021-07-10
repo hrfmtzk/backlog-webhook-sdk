@@ -9,10 +9,10 @@ class WebhookApp:
     def __init__(self) -> None:
         self._event_handlers: typing.Dict[str, typing.Callable] = {}
 
-    def handle(self, event: typing.Dict[str, typing.Any]) -> None:
+    def handle(self, event: typing.Dict[str, typing.Any]) -> typing.Any:
         webhook_event = WebhookEvent.from_raw(event)
         self.event = webhook_event
-        self._event_handlers[webhook_event.type]()
+        return self._event_handlers[webhook_event.type]()
 
     @property
     def create_issue(self):
